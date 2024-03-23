@@ -10,7 +10,7 @@ const CustomButton = ({
   containerStyles,
   handleClick,
 }: CustomButtonProps) => {
-  //need to create types folder and inside types.index.ts, declear and export the interface CustomButtonProps
+  //need to create "types" folder and inside types/index.ts, declear and export the interface CustomButtonProps
   return (
     <button
       disabled={false}
