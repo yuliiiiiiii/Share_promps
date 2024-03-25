@@ -9,12 +9,13 @@ const CustomButton = ({
   title,
   containerStyles,
   handleClick,
+  btnType
 }: CustomButtonProps) => {
   //need to create "types" folder and inside types/index.ts, declear and export the interface CustomButtonProps
   return (
     <button
       disabled={false}
-      type={"button"}
+      type={btnType || "button"}
       className={`custom-btn ${containerStyles}`}
       onClick={handleClick}
     >
