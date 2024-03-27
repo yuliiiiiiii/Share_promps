@@ -8,6 +8,9 @@ export default async function Home() {
   //await the function to fetch cars data from API
   console.log(allCars)
   //Home is a server side component(default), so console.log can be seen in the Next.js server in the terminal, not in the front end console
+
+  const isDataEmpty = !Array.isArray(allCars) || allCars.length < 1 || !allCars
+
   return (
     <main className="overflow-hidden">
       <Hero />
@@ -26,6 +29,17 @@ export default async function Home() {
             <CustomFilter title="year" />
           </div>
         </div>
+
+        {!isDataEmpty ? (
+          <section>
+            We have cars
+          </section>
+        ) : (
+          <div className="home__error-container">
+            <h2 className="text-black text-xl font-bold">Oops, no results</h2>
+            <p>{allCars?.message}</p>
+          </div>
+        ) }
       </div>
     </main>
   );
