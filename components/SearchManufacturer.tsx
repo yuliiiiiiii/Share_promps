@@ -25,7 +25,8 @@ const SearchManufacturer = ({
 
   return (
     <div className="search-manufacturer">
-      <Combobox>
+      {/* selecting the value from the options and the manufacturer state inside SearchBar component is updated */}
+      <Combobox value={manufacturer} onChange={setManufacturer}>
         <div className="relative w-full">
           <Combobox.Button className="absolute top-[14px]">
             <Image
@@ -72,7 +73,26 @@ const SearchManufacturer = ({
                       }`
                     }
                   >
-                    {manufacturer}
+                    {/* Below is pasted from headless UI Combobox Code */}
+                    {({selected, active}) => (
+                      <>
+                         <span
+                          className={`block truncate ${
+                            selected ? 'font-medium' : 'font-normal'
+                          }`}
+                        >
+                          {manufacturer}
+                        </span>
+                        {selected ? (
+                          <span
+                            className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
+                              active ? 'text-white' : 'text-teal-600'
+                            }`}
+                          >
+                          </span>
+                        ) : null}
+                      </>
+                    )}
                   </Combobox.Option>
                 ))
               )}
