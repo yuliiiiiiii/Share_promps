@@ -2,12 +2,42 @@
 import { SearchManufacturer } from ".";
 import { useState } from "react";
 import SearchButton from "./SearchButton";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const SearchBar = () => {
   const [manufacturer, setManufacturer] = useState('');
+  const [model, setModel] = useState('')
+  const router = useRouter()
 
-  const handleSearch = () => {
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); //prevent refresh the page when submit
+    if(manufacturer === '' && model == '') {
+      return alert('Please fill i the search bar')
+    }
 
+    updateSearchParams(model.toLowerCase(), manufacturer.toLocaleLowerCase())
+  }
+
+  const updateSearchParams = (model: string, manufacturer: string) => {
+    const searchParams = new URLSearchParams(window.location.search)
+    //get the query in the URL
+
+    if(model) {
+      searchParams.set('model', model)
+    } else {
+      searchParams.delete('model')
+    }
+    
+    if(manufacturer) {
+      searchParams.set('manufacturer', manufacturer)
+    } else {
+      searchParams.delete('manufacturer')
+    }
+
+    const newPathname = `${window.location.pathname}?${searchParams.toString()}`
+
+    router.push(newPathname)
   }
 
   return (
@@ -18,8 +48,26 @@ const SearchBar = () => {
          setManufacturer={setManufacturer}
         />
         <SearchButton otherClasses="sm:hidden"/>
-
       </div>
+      <div className="searchbar__item">
+        <Image 
+         src="/model-icon.png"
+         alt="model icon"
+         width={25}
+         height={25}
+         className="absolute w-[20px] h-[20px] ml-4"
+        />
+        <input 
+         type="text"
+         name="model"
+         value={model}
+         onChange={(e) => setModel(e.target.value)}
+         placeholder="Tiguan"
+         className="searchbar__input"
+        />
+        <SearchButton otherClasses="sm:hidden" />
+      </div>
+      <SearchButton otherClasses="max-sm:hidden" />
     </form>
   )
 }
