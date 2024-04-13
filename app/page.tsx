@@ -2,9 +2,10 @@
 import Image from "next/image";
 import { Hero, SearchBar, CustomFilter, CarCard} from "@/components";
 import { fetchCars } from "@/utils";
+import { CarProps } from "@/types";
 
 export default async function Home() {
-  const allCars = await fetchCars()
+  const allCars: CarProps[] | [] | undefined= await fetchCars()
   //await the function to fetch cars data from API
   console.log(allCars)
   //Home is a server side component(default), so console.log can be seen in the Next.js server in the terminal, not in the front end console

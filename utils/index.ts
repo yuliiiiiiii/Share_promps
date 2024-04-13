@@ -1,7 +1,7 @@
 import { CarProps } from "@/types";
 
 //fetch car data from Cars by API-Ninjas
-export async function fetchCars() {
+export async function fetchCars() :Promise<CarProps[] |[]| undefined>{
   const headers = {
     'X-RapidAPI-Key': '3ad0dd5eebmshafc7ff01f80c4e1p1d4e0djsn5d4c75f4e048',
     'X-RapidAPI-Host': 'cars-by-api-ninjas.p.rapidapi.com'
