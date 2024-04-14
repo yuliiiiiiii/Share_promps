@@ -1,7 +1,7 @@
 import { CarProps, FilterProps } from "@/types";
 
 //fetch car data from Cars by API-Ninjas
-export async function fetchCars(filters: FilterProps) :Promise<CarProps[] |[]| undefined>{
+export async function fetchCars(filters: FilterProps) :Promise<CarProps[] |[] | void>{
 
   const { manufacturer, model, year, fuel, limit } = filters
 
@@ -9,7 +9,7 @@ export async function fetchCars(filters: FilterProps) :Promise<CarProps[] |[]| u
     'X-RapidAPI-Key': '3ad0dd5eebmshafc7ff01f80c4e1p1d4e0djsn5d4c75f4e048',
     'X-RapidAPI-Host': 'cars-by-api-ninjas.p.rapidapi.com'
   }
-
+try{
   const response = await fetch(`https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?make=${manufacturer}&year=${year}&model=${model}&fuel_type=${fuel}&limit=${limit}`, {
     headers: headers,
   });
@@ -18,6 +18,9 @@ export async function fetchCars(filters: FilterProps) :Promise<CarProps[] |[]| u
   // taking JSOn as input and parsing it to produce a JS object
 
   return result
+} catch (e) {
+  console.log(e)
+}
 }
 
 export const calculateCarRent = (city_mpg: number, year: number) => {

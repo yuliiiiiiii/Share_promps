@@ -4,7 +4,12 @@ import { Hero, SearchBar, CustomFilter, CarCard} from "@/components";
 import { fetchCars } from "@/utils";
 import { CarProps, FilterProps } from "@/types";
 
-export default async function Home({ searchParams}) {
+
+interface SearchParamsProps{
+  searchParams: FilterProps
+}
+
+export default async function Home({ searchParams} : SearchParamsProps) {
 //next can get searchParams directly! so can use searchParams directly
   const allCars = await fetchCars({
     manufacturer: searchParams.manufacturer || '',
