@@ -13,7 +13,7 @@ const SearchBar = () => {
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); //prevent refresh the page when submit
     if(manufacturer === '' && model == '') {
-      return alert('Please fill i the search bar')
+      return alert('Please fill in the search bar')
     }
 
     updateSearchParams(model.toLowerCase(), manufacturer.toLocaleLowerCase())

@@ -2,10 +2,17 @@
 import Image from "next/image";
 import { Hero, SearchBar, CustomFilter, CarCard} from "@/components";
 import { fetchCars } from "@/utils";
-import { CarProps } from "@/types";
+import { CarProps, FilterProps } from "@/types";
 
-export default async function Home() {
-  const allCars: CarProps[] | [] | undefined= await fetchCars()
+export default async function Home({ searchParams}) {
+//next can get searchParams directly! so can use searchParams directly
+  const allCars = await fetchCars({
+    manufacturer: searchParams.manufacturer || '',
+    model: searchParams.model || '',
+    year: searchParams.year || 2022,
+    fuel: searchParams.fuel || '',
+    limit: searchParams.limit || 10
+  })
   //await the function to fetch cars data from API
   console.log(allCars)
   //Home is a server side component(default), so console.log can be seen in the Next.js server in the terminal, not in the front end console
