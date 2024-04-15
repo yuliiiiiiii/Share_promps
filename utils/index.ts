@@ -53,3 +53,15 @@ export const generateCarImageUrl = (car: CarProps, angle?: string) => {
   
   return `${url}`;
 }
+
+export const updateSearchParams = (type: string, value: string) => {
+  const searchParams =  new URLSearchParams(window.location.search)
+  //URLSearchParams constractor returns a URLSearchParams object instance => the current search paramter entries
+ 
+  searchParams.set(type, value)
+  //Sets the value associated with a given search parameter to the given value. If there are several values, the others are deleted.
+
+  const newPathname = `?${searchParams.toString()}`
+
+  return newPathname
+}

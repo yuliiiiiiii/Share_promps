@@ -2,18 +2,31 @@
 import React from 'react'
 import { Fragment, useState } from 'react'
 import Image from 'next/image';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { Listbox, Transition } from '@headlessui/react';
 import { CustomFilterProps } from '@/types';
+import { updateSearchParams } from '@/utils';
 
 const CustomFilter = ({title, options}: CustomFilterProps) => {
+  const router = useRouter();
   const [selected, setSelected] = useState(options[0])
+  //useRouter() hook returns the path for current route file that comes after /pages. Therefore, basePath, locale and trailing slash (trailingSlash: true) are not included.
+
+  const handleUpdateParams = (e:{title: string, value: string}) => {
+    const newPathName = updateSearchParams(title, e.value.toLocaleLowerCase())
+
+    router.push(newPathName)
+    //to add more query params to the URL so that the page component can get all the search quries from searchParams and send them to fetchCars() function for server side rendering
+  }
 
   return (
     <div className='w-fit'>
       <Listbox
         value={selected}
-        onChange={(e) => setSelected(e)}
+        onChange={(e) =>{
+          setSelected(e); 
+          handleUpdateParams(e);
+        }}
       >
         <div className='relative w-fit z-10'>
           <Listbox.Button className="custom-filter__btn">

@@ -11,7 +11,7 @@ interface SearchParamsProps{
 }
 
 export default async function Home({ searchParams} : SearchParamsProps) {
-//next can get searchParams directly! so can use searchParams directly
+//next can get searchParams directly! so can use searchParams directly, like a get request to receive data from backend
   const allCars = await fetchCars({
     manufacturer: searchParams.manufacturer || '',
     model: searchParams.model || '',
@@ -21,7 +21,7 @@ export default async function Home({ searchParams} : SearchParamsProps) {
   })
   //await the function to fetch cars data from API
   console.log(allCars)
-  //Home is a server side component(default), so console.log can be seen in the Next.js server in the terminal, not in the front end console
+  //Home is a server side component(default), so console.log can be seen in the Next.js server in the terminal, not in the front end console, can not change states
 
   const isDataEmpty = !Array.isArray(allCars) || allCars.length < 1 || !allCars
 
